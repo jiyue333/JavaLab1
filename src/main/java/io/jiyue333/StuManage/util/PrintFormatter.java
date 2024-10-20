@@ -11,10 +11,8 @@ public class PrintFormatter {
     private final TeacherController teacherController;
     @SimpleInject
     private final CourseController courseController;
-    @SimpleInject
-    private final GradeController gradeController;
-
-    // 存储学生学号
+    
+    // 存储输入信息
     private Map<String, Integer> info;
 
 

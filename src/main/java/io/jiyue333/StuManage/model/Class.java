@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Class implements Serializable {
     private int classId;
+    private String className;
     private String teacherId; // ID of the teacher assigned to the class
     private int totalStudents;
     private String semester;
@@ -22,6 +23,14 @@ public class Class implements Serializable {
     }
 
     // Getters and Setters
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
 
     public int getClassId() {
         return classId;
