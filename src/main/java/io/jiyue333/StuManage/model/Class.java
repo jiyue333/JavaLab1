@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Class implements Serializable {
-    private int classId;
+    private String classId;
     private String className;
     private String teacherId; // ID of the teacher assigned to the class
     private int totalStudents;
@@ -13,7 +13,7 @@ public class Class implements Serializable {
     private String courseId; // ID of the course taught in the class
 
     // Constructor
-    public Class(int classId, String teacherId, int totalStudents, String semester, List<String> studentIds, String courseId) {
+    public Class(String classId, String teacherId, int totalStudents, String semester, List<String> studentIds, String courseId) {
         this.classId = classId;
         this.teacherId = teacherId;
         this.totalStudents = totalStudents;
@@ -32,11 +32,11 @@ public class Class implements Serializable {
         this.className = className;
     }
 
-    public int getClassId() {
+    public String getClassId() {
         return classId;
     }
 
-    public void setClassId(int classId) {
+    public void setClassId(String classId) {
         this.classId = classId;
     }
 

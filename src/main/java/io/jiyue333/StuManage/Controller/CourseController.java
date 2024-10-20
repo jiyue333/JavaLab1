@@ -5,6 +5,7 @@ import io.jiyue333.StuManage.model.Student;
 import io.jiyue333.StuManage.service.impl.StudentManagementService;
 import io.jiyue333.StuManage.util.SimpleInject;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Controller for managing course-related operations.
@@ -12,7 +13,7 @@ import java.util.*;
 public class CourseController {
     @SimpleInject
     private StudentManagementService studentManagementService;
-    public void displayAllCourses(int studentId) {
+    public void displayAllCourses(String studentId) {
         // 显示所有课程
         List<Course> courses = studentManagementService.getAllCourses();
         System.out.println("所有课程：");
@@ -22,11 +23,11 @@ public class CourseController {
         }
     }
 
-    public void selectCourse(int studentId) {
+    public void selectCourse(String studentId) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("请输入要选择的课程名称: ");
-        String courseName = scanner.nextLine();
-        Course course = studentManagementService.getCourseByName(courseName);
+        System.out.print("请输入要选择的课程ID: ");
+        String courseId = scanner.nextLine();
+        Course course = studentManagementService.getCourseById(courseId);
         if (course == null) {
             System.out.println("课程不存在。");
             return;
@@ -40,11 +41,11 @@ public class CourseController {
     }
 
     // 退选课程
-    public void dropCourse(int studentId) {
+    public void dropCourse(String studentId) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("请输入要退选的课程名称: ");
-        String courseName = scanner.nextLine();
-        Course course = studentManagementService.getCourseByName(courseName);
+        System.out.print("请输入要退选的课程ID: ");
+        String courseId = scanner.nextLine();
+        Course course = studentManagementService.getCourseById(courseId);
         if (course == null) {
             System.out.println("课程不存在。");
             return;
@@ -57,7 +58,7 @@ public class CourseController {
     }
 
     // 显示已选课程
-    public void displaySelectedCourses(int studentId) {
+    public void displaySelectedCourses(String studentId) {
         Student student = studentManagementService.getStudentById(studentId);
         List<Course> courses = student.getCourseIds().stream()
                 .map(studentManagementService::getCourseById)

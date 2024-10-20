@@ -6,11 +6,13 @@ import java.util.List;
 
 import io.jiyue333.StuManage.model.Teacher;
 import io.jiyue333.StuManage.util.SimpleSingleton;
+import io.jiyue333.StuManage.util.SimpleInject;
 
 @SimpleSingleton
 public class TeacherRepository {
     @SimpleInject
-    private final BasicDB db;
+    private BasicDB db;
+
     private final static String TEACHERPREFIX = "teacher:";
 
      

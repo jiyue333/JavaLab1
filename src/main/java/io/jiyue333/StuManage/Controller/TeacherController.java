@@ -4,7 +4,6 @@ import java.util.*;
 import io.jiyue333.StuManage.util.SimpleInject;
 import io.jiyue333.StuManage.service.impl.TeacherManageService;
 import io.jiyue333.StuManage.model.Teacher;
-import io.jiyue333.StuManage.model.Teacher;
 
 /**
  * Controller for managing teacher-related operations.
@@ -17,7 +16,7 @@ public class TeacherController {
      * Updates the information of a teacher.
      * @param teacherId The ID of the teacher to update.
      */
-    public void updateTeacherInfo(int teacherId) {
+    public void updateTeacherInfo(String teacherId) {
         Scanner scanner = new Scanner(System.in);
         Teacher teacher = teacherManagementService.getTeacherById(teacherId);
         if (teacher == null) {
@@ -35,14 +34,14 @@ public class TeacherController {
      * Queries and displays information of a specific teacher.
      * @param teacherId The ID of the teacher to query.
      */
-    public void queryTeacherInfo(int teacherId) {
+    public void queryTeacherInfo(String teacherId) {
         Teacher teacher = teacherManagementService.getTeacherById(teacherId);
         if (teacher == null) {
             System.out.println("教师不存在。");
             return;
         }
         System.out.println("教师信息：");
-        System.out.println("教师编号: " + teacher.getId());
+        System.out.println("教师编号: " + teacher.getTeacherId());
         System.out.println("姓名: " + teacher.getName());
     }
 
@@ -58,7 +57,7 @@ public class TeacherController {
         System.out.println("所有教师信息：");
         System.out.println("教师编号\t姓名");
         for (Teacher teacher : teachers) {
-            System.out.println(teacher.getId() + "\t\t" + teacher.getName());
+            System.out.println(teacher.getTeacherId() + "\t\t" + teacher.getName());
         }
     }
 }

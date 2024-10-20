@@ -4,13 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.jiyue333.StuManage.model.Class;
 import io.jiyue333.StuManage.model.Student;
+import io.jiyue333.StuManage.util.SimpleInject;
 import io.jiyue333.StuManage.util.SimpleSingleton;
 
 @SimpleSingleton
 public class StudentRepository {
     @SimpleInject
-    private final BasicDB db;
+    private BasicDB db;
 
     public List<Student> getAllStudents() {
         List<Student> students = new ArrayList<>();
@@ -75,6 +77,15 @@ public class StudentRepository {
             db.flush();
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Error deleting student: " + e.getMessage());
+        }
+    }
+
+    public Class getClassById(String classId) {
+        try {
+            return (Class) db.get("class:" + classId);
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error retrieving class: " + e.getMessage());
+            return null;
         }
     }
 }

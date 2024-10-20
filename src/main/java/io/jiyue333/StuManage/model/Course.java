@@ -7,11 +7,11 @@ public class Course implements Serializable {
     private String courseId;
     private String courseName;
     private String teacherId; // ID of the teacher teaching the course
-    private List<Integer> classIds; // List of class IDs associated with the course
+    private List<String> classIds; // List of class IDs associated with the course
     private List<String> studentIds; // List of student IDs enrolled in the course
 
     // Constructor
-    public Course(String courseId, String courseName, String teacherId, List<Integer> classIds, List<String> studentIds) {
+    public Course(String courseId, String courseName, String teacherId, List<String> classIds, List<String> studentIds) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.teacherId = teacherId;
@@ -45,11 +45,11 @@ public class Course implements Serializable {
         this.teacherId = teacherId;
     }
 
-    public List<Integer> getClassIds() {
+    public List<String> getClassIds() {
         return classIds;
     }
 
-    public void setClassIds(List<Integer> classIds) {
+    public void setClassIds(List<String> classIds) {
         this.classIds = classIds;
     }
 

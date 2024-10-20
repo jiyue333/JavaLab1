@@ -11,7 +11,7 @@ import java.util.List;
 
 public class StudentController {
     @SimpleInject
-    private final StudentManagementService studentService;
+    private StudentManagementService studentService;
 
     // In-memory storage for students
     private Map<Integer, Student> students = new HashMap<>();
@@ -20,7 +20,7 @@ public class StudentController {
      * Updates the information of a student.
      * @param studentId The ID of the student to update.
      */
-    public void updateStudentInfo(int studentId) {
+    public void updateStudentInfo(String studentId) {
         Scanner scanner = new Scanner(System.in);
         Student student = studentService.getStudentById(studentId);
         if (student == null) {
@@ -38,7 +38,7 @@ public class StudentController {
      * Queries and displays information of a specific student.
      * @param studentId The ID of the student to query.
      */
-    public void queryStudentInfo(int studentId) {
+    public void queryStudentInfo(String studentId) {
         Student student = studentService.getStudentById(studentId);
         if (student == null) {
             System.out.println("学生不存在。");

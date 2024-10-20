@@ -1,11 +1,13 @@
 package io.jiyue333.StuManage.service.impl;
 
 import java.util.List;
+
 import io.jiyue333.StuManage.Repository.ClassRepository;
 import io.jiyue333.StuManage.Repository.CourseRepository;
 import io.jiyue333.StuManage.Repository.GradeRepository;
 import io.jiyue333.StuManage.Repository.StudentRepository;
 import io.jiyue333.StuManage.Repository.TeacherRepository;
+import io.jiyue333.StuManage.model.Class;
 import io.jiyue333.StuManage.model.Course;
 import io.jiyue333.StuManage.model.Grade;
 import io.jiyue333.StuManage.model.Student;
@@ -14,20 +16,19 @@ import io.jiyue333.StuManage.service.DataGenerationService;
 import io.jiyue333.StuManage.util.RandomDataGenerator;
 import io.jiyue333.StuManage.util.SimpleInject;
 
-
 public class DataGenerationServiceImpl implements DataGenerationService {
     @SimpleInject
-    private final StudentRepository studentRepo;
+    private StudentRepository studentRepo;
     @SimpleInject
-    private final TeacherRepository teacherRepo;
+    private TeacherRepository teacherRepo;
     @SimpleInject
-    private final CourseRepository courseRepo;
+    private CourseRepository courseRepo;
     @SimpleInject
-    private final ClassRepository classRepo;
+    private ClassRepository classRepo;
     @SimpleInject
-    private final GradeRepository gradeRepo;
+    private GradeRepository gradeRepo;
     @SimpleInject
-    private final RandomDataGenerator generator;
+    private RandomDataGenerator generator;
 
     @Override
     public void generateRandomData() {

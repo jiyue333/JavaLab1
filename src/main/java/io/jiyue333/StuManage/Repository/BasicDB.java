@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
+import io.jiyue333.StuManage.util.SimpleSingleton;
+@SimpleSingleton
 public class BasicDB {
 	private static final int MAX_DATA_LENGTH = 1020;
 	// 补白字节

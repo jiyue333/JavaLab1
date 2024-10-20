@@ -13,7 +13,7 @@ import io.jiyue333.StuManage.util.SimpleInject;
 
 public class SortedServiceImpl implements SortedService {
     @SimpleInject
-    private final StudentManagementService studentManagementService;
+    private StudentManagementService studentManagementService;
 
 
     @Override
@@ -26,24 +26,33 @@ public class SortedServiceImpl implements SortedService {
     @Override
     public List<Student> sortedByGrade(Class mclass) {
         // Retrieve grades associated with the class
-        Map<String, Grade> gradeMap = studentManagementService.getGradesByClassId(mclass.getClassId());
+        List<Student> students = studentManagementService.getStudentsByClassId(mclass.getClassId());
+        String courseName = mclass.getClassName();
 
-        return mclass.getStudentIds().stream()
-                .map(studentManagementService::getStudentById)
-                .filter(student -> gradeMap.containsKey(student.getStudentId()))
-                .sorted(Comparator.comparing((Student student) -> gradeMap.get(student.getStudentId()).getComprehensiveGrade()).reversed())
+        return students.stream()
+                // Filter out students without a grade for the course
+                .filter(student -> {
+                    Grade grade = student.getGrades().get(courseName);
+                    return grade != null ;
+                })
+                // Sort students by comprehensive grade in descending order
+                .sorted(Comparator.comparing(
+                        (Student student) -> student.getGrades().get(courseName).getComprehensiveGrade(),
+                        Comparator.nullsLast(Comparator.naturalOrder())
+                ).reversed())
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Student> sortedByLimit(Class mclass, int start, int end) {
         // Retrieve grades associated with the class
-        Map<String, Grade> gradeMap = studentManagementService.getGradesByClassId(mclass.getClassId());
+        List<Student> students = studentManagementService.getStudentsByClassId(mclass.getClassId());
+        String courseName = mclass.getClassName();
 
         return mclass.getStudentIds().stream()
                 .map(studentManagementService::getStudentById)
                 .filter(student -> {
-                    Grade grade = gradeMap.get(student.getStudentId());
+                    Grade grade = student.getGrades().get(courseName);
                     return grade != null && grade.getComprehensiveGrade() >= start && grade.getComprehensiveGrade() <= end;
                 })
                 .sorted(Comparator.comparing(Student::getStudentId))

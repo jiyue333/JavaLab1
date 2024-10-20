@@ -20,9 +20,9 @@ public class ClassController {
 
     /**
      * Displays information of a specific class.
-     * @param classId The ID of the class to display.
+     * @param studentId The ID of the class to display.
      */
-    public void displayClassInfo(int studentId) {
+    public void displayClassInfo(String studentId) {
         List<Class> classes = studentManagementService.getClassByStudentId(studentId);
         if (classes == null) {
             System.out.println("班级不存在。");
@@ -39,26 +39,42 @@ public class ClassController {
      * Sorts and displays students in a class by grade.
      * @param classId The ID of the class to sort.
      */
-    public void sortedByGrade(int classId) {
+    public void sortedByGrade(String classId) {
         // Placeholder for sorting by grade
-        System.out.println("按照成绩排序的功能尚未实现。");
+        Class mclass = studentManagementService.getClassById(classId);
+        List<Student> students = sortService.sortedByGrade(mclass);
+        for (Student student : students) {
+            System.out.println(student.getStudentId() + " " + student.getGrades().get(mclass.getClassName()).getComprehensiveGrade());
+        }
     }
 
     /**
      * Sorts and displays students in a class by student ID.
      * @param classId The ID of the class to sort.
      */
-    public void sortedByStudentId(int classId) {
+    public void sortedByStudentId(String classId) {
         // Placeholder for sorting by student ID
-        System.out.println("按照学号排序的功能尚未实现。");
+        Class mclass = studentManagementService.getClassById(classId);
+        List<Student> students = studentManagementService.getStudentsByClassId(classId);
+        List<Student> sortedStudents = sortService.sortedbyNumber(students);
+        for (Student student : sortedStudents) {
+            System.out.println(student.getStudentId() + " " + student.getGrades().get(mclass.getClassName()).getComprehensiveGrade());
+        }
     }
 
     /**
      * Sorts and displays students in a class by score segments.
      * @param classId The ID of the class to sort.
      */
-    public void sortedByScore(int classId) {
-        // Placeholder for sorting by score segments
-        System.out.println("根据分数段划分的功能尚未实现。");
+    public void sortedByScore(String classId) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入分数段：");
+        int start = scanner.nextInt();
+        int end = scanner.nextInt();
+        Class mclass = studentManagementService.getClassById(classId);
+        List<Student> students = sortService.sortedByLimit(mclass, start, end);
+        for (Student student : students) {
+            System.out.println(student.getStudentId() + " " + student.getGrades().get(mclass.getClassName()).getComprehensiveGrade());
+        }
     }
 }

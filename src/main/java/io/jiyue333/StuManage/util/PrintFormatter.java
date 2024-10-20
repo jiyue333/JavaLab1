@@ -4,16 +4,16 @@ import io.jiyue333.StuManage.Controller.*;
 
 public class PrintFormatter {
     @SimpleInject
-    private final StudentController studentController;
+    private StudentController studentController;
     @SimpleInject   
-    private final ClassController classController;
+    private ClassController classController;
     @SimpleInject
-    private final TeacherController teacherController;
+    private TeacherController teacherController;
     @SimpleInject
-    private final CourseController courseController;
+    private CourseController courseController;
     
     // 存储输入信息
-    private Map<String, Integer> info;
+    private final Map<String, String> info;
 
 
     
@@ -67,10 +67,10 @@ public class PrintFormatter {
         Scanner scanner = new java.util.Scanner(System.in);
         if(!info.containsKey("studentId")){
             System.out.println("请输入学生学号：");
-            int studentId = scanner.nextInt();
+            String studentId = scanner.next();
             info.put("studentId", studentId);
         }
-        int studentId = info.get("studentId");
+        String studentId = info.get("studentId");
         System.out.println("\n===== 学生选课菜单 =====");
         System.out.println("1. 查看可选课程");
         System.out.println("2. 选择课程");
@@ -103,10 +103,10 @@ public class PrintFormatter {
         Scanner scanner = new java.util.Scanner(System.in);
         if(!info.containsKey("studentId")){
             System.out.println("请输入学生学号：");
-            int studentId = scanner.nextInt();
+            String studentId = scanner.next();
             info.put("studentId", studentId);
         }
-        int studentId = info.get("studentId");
+        String studentId = info.get("studentId");
         System.out.println("\n===== 学生信息菜单 =====");
         System.out.println("1. 修改学生信息");
         System.out.println("2. 查询学生信息");
@@ -135,10 +135,10 @@ public class PrintFormatter {
         Scanner scanner = new java.util.Scanner(System.in);
         if(!info.containsKey("classId")){
             System.out.println("请输入班级编号：");
-            int classId = scanner.nextInt();
+            String classId = scanner.next();
             info.put("classId", classId);
         }
-        int classId = info.get("classId");
+        String classId = info.get("classId");
         System.out.println("\n===== 班级信息菜单 =====");
         System.out.println("1. 展示班级信息");
         System.out.println("2. 依据成绩排序");
@@ -171,10 +171,10 @@ public class PrintFormatter {
         Scanner scanner = new java.util.Scanner(System.in);
         if(!info.containsKey("teacherId")){
             System.out.println("请输入教师编号：");
-            int teacherId = scanner.nextInt();
+            String teacherId = scanner.next();
             info.put("teacherId", teacherId);
         }
-        int teacherId = info.get("teacherId");
+        String teacherId = info.get("teacherId");
         System.out.println("\n===== 教师信息菜单 =====");
         System.out.println("1. 修改教师信息");
         System.out.println("2. 查询教师信息");
