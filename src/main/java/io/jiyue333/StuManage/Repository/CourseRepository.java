@@ -1,8 +1,8 @@
 package io.jiyue333.StuManage.Repository;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import io.jiyue333.StuManage.model.Course;
 import io.jiyue333.StuManage.util.SimpleInject;
@@ -28,6 +28,7 @@ public class CourseRepository {
         try {
             courseIds = (List<String>) db.get("courses.ids");
         } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e);
             System.err.println("Error retrieving courses: " + e.getMessage());
         }
         for (String courseId : courseIds) {
@@ -40,9 +41,20 @@ public class CourseRepository {
     }
 
     public void saveCourse(Course course) {
-        try {
+      try {
             db.put("course:" + course.getCourseId(), course);
-        } catch (IOException e) {
+            // Update courses.ids list
+            @SuppressWarnings("unchecked")
+            List<String> courseIds = (List<String>) db.get("courses.ids");
+            if (courseIds == null) {
+                courseIds = new ArrayList<>();
+            }
+            if (!courseIds.contains(course.getCourseId())) {
+                courseIds.add(course.getCourseId());
+                db.put("courses.ids", courseIds);
+            }
+            db.flush();
+        } catch (IOException | ClassNotFoundException e) {
             System.err.println("Error saving course: " + e.getMessage());
         }
     }

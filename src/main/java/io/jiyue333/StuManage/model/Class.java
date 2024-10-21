@@ -13,8 +13,9 @@ public class Class implements Serializable {
     private String courseId; // ID of the course taught in the class
 
     // Constructor
-    public Class(String classId, String teacherId, int totalStudents, String semester, List<String> studentIds, String courseId) {
+    public Class(String classId, String className, String teacherId, int totalStudents, String semester, List<String> studentIds, String courseId) {
         this.classId = classId;
+        this.className = className;
         this.teacherId = teacherId;
         this.totalStudents = totalStudents;
         this.semester = semester;
@@ -79,5 +80,7 @@ public class Class implements Serializable {
     public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
+
+
 }
 

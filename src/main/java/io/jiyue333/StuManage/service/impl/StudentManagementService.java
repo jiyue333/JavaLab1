@@ -15,10 +15,9 @@ public class StudentManagementService {
     private StudentRepository studentRepository;
     @SimpleInject
     private CourseRepository courseRepository;
+    @SimpleInject
+    private ClassRepository classRepository;
 
-    public StudentManagementService(StudentRepository studentRepository) {
-	}
-    
 
     public Student getStudentById(String studentId) {
         return studentRepository.getStudentById(studentId);
@@ -51,9 +50,7 @@ public class StudentManagementService {
     }
 
     public Course getCourseById(String courseId) {
-        return courseRepository.getCourseById(courseId);
-    }
-
+        return courseRepository.getCourseById(courseId); }
     public Class getClassById(String classId) {
         return studentRepository.getClassById(classId);
     }
@@ -62,5 +59,9 @@ public class StudentManagementService {
         Class mclass = getClassById(classId);
         List<String> studentIds = mclass.getStudentIds();
         return studentIds.stream().map(studentRepository::getStudentById).collect(Collectors.toList());
+    }
+
+    public List<Class> getAllClasses() {
+        return classRepository.getAllClasses();
     }
 }

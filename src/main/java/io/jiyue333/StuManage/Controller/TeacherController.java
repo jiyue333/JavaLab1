@@ -1,16 +1,18 @@
 package io.jiyue333.StuManage.Controller;
 
-import java.util.*;
-import io.jiyue333.StuManage.util.SimpleInject;
-import io.jiyue333.StuManage.service.impl.TeacherManageService;
+import java.util.List;
+import java.util.Scanner;
 import io.jiyue333.StuManage.model.Teacher;
+import io.jiyue333.StuManage.service.impl.TeacherManageService;
+import io.jiyue333.StuManage.util.SimpleInject;
+import io.jiyue333.StuManage.util.PrintFormatter;
 
-/**
- * Controller for managing teacher-related operations.
- */
 public class TeacherController {
     @SimpleInject
     private TeacherManageService teacherManagementService;
+    
+    @SimpleInject
+    private PrintFormatter printFormatter;
 
     /**
      * Updates the information of a teacher.
@@ -20,14 +22,14 @@ public class TeacherController {
         Scanner scanner = new Scanner(System.in);
         Teacher teacher = teacherManagementService.getTeacherById(teacherId);
         if (teacher == null) {
-            System.out.println("教师不存在。");
+            printFormatter.printError("教师不存在。");
             return;
         }
         System.out.print("请输入新的姓名: ");
         String name = scanner.nextLine();
         teacher.setName(name);
         teacherManagementService.updateTeacher(teacher);
-        System.out.println("教师信息已更新。");
+        printFormatter.printSuccess("教师信息已更新。");
     }
 
     /**
@@ -37,12 +39,16 @@ public class TeacherController {
     public void queryTeacherInfo(String teacherId) {
         Teacher teacher = teacherManagementService.getTeacherById(teacherId);
         if (teacher == null) {
-            System.out.println("教师不存在。");
+            printFormatter.printError("教师不存在。");
             return;
         }
-        System.out.println("教师信息：");
-        System.out.println("教师编号: " + teacher.getTeacherId());
-        System.out.println("姓名: " + teacher.getName());
+        printFormatter.printHeader("教师信息");
+        String[] headers = {"教师编号", "姓名"};
+        String[] dataRow = {
+            teacher.getTeacherId(),
+            teacher.getName()
+        };
+        printFormatter.printTable(headers, new String[][] {dataRow});
     }
 
     /**
@@ -51,13 +57,17 @@ public class TeacherController {
     public void displayAllTeachers() {
         List<Teacher> teachers = teacherManagementService.getAllTeachers();
         if (teachers.isEmpty()) {
-            System.out.println("没有教师信息。");
+            printFormatter.printInfo("没有教师信息。");
             return;
         }
-        System.out.println("所有教师信息：");
-        System.out.println("教师编号\t姓名");
-        for (Teacher teacher : teachers) {
-            System.out.println(teacher.getTeacherId() + "\t\t" + teacher.getName());
+        printFormatter.printHeader("所有教师信息");
+        String[] headers = {"教师编号", "姓名"};
+        String[][] data = new String[teachers.size()][2];
+        for (int i = 0; i < teachers.size(); i++) {
+            Teacher teacher = teachers.get(i);
+            data[i][0] = teacher.getTeacherId();
+            data[i][1] = teacher.getName();
         }
+        printFormatter.printTable(headers, data);
     }
 }

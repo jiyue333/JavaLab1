@@ -9,7 +9,7 @@ import java.util.Queue;
 import io.jiyue333.StuManage.util.SimpleSingleton;
 @SimpleSingleton
 public class BasicDB {
-	private static final int MAX_DATA_LENGTH = 1020;
+	private static final int MAX_DATA_LENGTH = 5000;
 	// 补白字节
 	private static final byte[] ZERO_BYTES = new byte[MAX_DATA_LENGTH];
 	// 数据文件后缀
@@ -17,9 +17,9 @@ public class BasicDB {
 	// 元数据文件后缀，包括索引和空白空间数据
 	private static final String META_SUFFIX = ".meta";
 	// 数据库路径
-	private static final String path = "/";
+	private static final String path = "./";
 	// 数据库名称
-	private static final String name = "studb";
+	private static final String name = "demo";
 
 	// 索引信息，键->值在.data文件中的位置
 	Map<String, Long> indexMap;

@@ -3,7 +3,7 @@ package io.jiyue333.StuManage.model;
 import java.io.Serializable;
 
 public class Grade implements Serializable {
-    private int gradeId;
+    private String gradeId;
     private String studentId; // ID of the student
     private String courseId; // ID of the course
     private int regularGrade;
@@ -14,7 +14,7 @@ public class Grade implements Serializable {
     private long gradeTimestamp;
 
     // Constructor
-    public Grade(int gradeId, String studentId, String courseId, int regularGrade, int midtermGrade, int experimentalGrade, int finalGrade, int comprehensiveGrade, long gradeTimestamp) {
+    public Grade(String gradeId, String studentId, String courseId, int regularGrade, int midtermGrade, int experimentalGrade, int finalGrade, int comprehensiveGrade, long gradeTimestamp) {
         this.gradeId = gradeId;
         this.studentId = studentId;
         this.courseId = courseId;
@@ -28,11 +28,11 @@ public class Grade implements Serializable {
 
     // Getters and Setters
 
-    public int getGradeId() {
+    public String getGradeId() {
         return gradeId;
     }
 
-    public void setGradeId(int gradeId) {
+    public void setGradeId(String gradeId) {
         this.gradeId = gradeId;
     }
 

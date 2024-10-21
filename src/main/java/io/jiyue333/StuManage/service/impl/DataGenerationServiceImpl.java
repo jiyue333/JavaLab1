@@ -34,22 +34,26 @@ public class DataGenerationServiceImpl implements DataGenerationService {
     public void generateRandomData() {
         // Generate and save Teachers
         List<Teacher> teachers = generator.generateRandomTeachers(5);
-        teachers.forEach(teacherRepo::saveTeacher);
 
         // Generate and save Courses
         List<Course> courses = generator.generateRandomCourses(10, teachers);
-        courses.forEach(courseRepo::saveCourse);
 
         // Generate and save Classes
         List<Class> classes = generator.generateRandomClasses(3, teachers, courses);
-        classes.forEach(classRepo::saveClass);
+        
 
         // Generate and save Students
         List<Student> students = generator.generateRandomStudents(50, classes, courses);
-        students.forEach(studentRepo::saveStudent);
-
+        
         // Generate and save Grades
         List<Grade> grades = generator.generateRandomGrades(200, students, courses);
+
+        teachers.forEach(teacherRepo::saveTeacher);
+        courses.forEach(courseRepo::saveCourse);
+
+        students.forEach(studentRepo::saveStudent);
+        // Save Classes after students have been assigned
+        classes.forEach(classRepo::saveClass);
         grades.forEach(gradeRepo::saveGrade);
 
         System.out.println("Random data generation completed successfully.");

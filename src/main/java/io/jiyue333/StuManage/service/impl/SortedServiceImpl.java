@@ -2,7 +2,6 @@ package io.jiyue333.StuManage.service.impl;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import io.jiyue333.StuManage.model.Class;
@@ -27,7 +26,7 @@ public class SortedServiceImpl implements SortedService {
     public List<Student> sortedByGrade(Class mclass) {
         // Retrieve grades associated with the class
         List<Student> students = studentManagementService.getStudentsByClassId(mclass.getClassId());
-        String courseName = mclass.getClassName();
+        String courseName = mclass.getCourseId();
 
         return students.stream()
                 // Filter out students without a grade for the course
@@ -47,7 +46,7 @@ public class SortedServiceImpl implements SortedService {
     public List<Student> sortedByLimit(Class mclass, int start, int end) {
         // Retrieve grades associated with the class
         List<Student> students = studentManagementService.getStudentsByClassId(mclass.getClassId());
-        String courseName = mclass.getClassName();
+        String courseName = mclass.getCourseId();
 
         return mclass.getStudentIds().stream()
                 .map(studentManagementService::getStudentById)
