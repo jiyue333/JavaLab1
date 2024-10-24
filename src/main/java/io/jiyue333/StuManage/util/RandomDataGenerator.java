@@ -1,18 +1,9 @@
 package io.jiyue333.StuManage.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-
 import io.jiyue333.StuManage.model.Class;
-import io.jiyue333.StuManage.model.Course;
-import io.jiyue333.StuManage.model.Grade;
-import io.jiyue333.StuManage.model.Student;
-import io.jiyue333.StuManage.model.Teacher;
+import io.jiyue333.StuManage.model.*;
+
+import java.util.*;
 
 public class RandomDataGenerator {
     private Random random = new Random();
@@ -85,7 +76,7 @@ public class RandomDataGenerator {
             // Assign a random teacher to the class
             Teacher teacher = teachers.get(random.nextInt(teachers.size()));
             String teacherId = teacher.getTeacherId();
-            int totalStudents = random.nextInt(40) + 10; // Between 10 and 50 students
+            int totalStudents = 0; // Between 10 and 50 students
             String semester = getRandomSemester();
             List<String> studentIds = new ArrayList<>(); // Will be assigned later
             // Assign a random course to the class
@@ -127,6 +118,7 @@ public class RandomDataGenerator {
                 mandatoryCourseIds.add(mclass.getCourseId()); // 确保班级的课程被包含
                 // 将学生添加到班级的学生列表
                 mclass.getStudentIds().add(studentId);
+                mclass.setTotalStudents(mclass.getTotalStudents()+1);
             }
             
             // 分配3-5门课程给学生，确保包含必修课程

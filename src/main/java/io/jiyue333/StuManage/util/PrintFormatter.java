@@ -1,7 +1,14 @@
 package io.jiyue333.StuManage.util;
 
-import java.util.*;
-import io.jiyue333.StuManage.Controller.*;
+import io.jiyue333.StuManage.Controller.ClassController;
+import io.jiyue333.StuManage.Controller.CourseController;
+import io.jiyue333.StuManage.Controller.StudentController;
+import io.jiyue333.StuManage.Controller.TeacherController;
+
+import java.util.HashMap;
+import java.util.InputMismatchException;
+import java.util.Map;
+import java.util.Scanner;
 
 
 @SimpleSingleton
@@ -272,6 +279,7 @@ public class PrintFormatter {
             System.out.println("1. 修改学生信息");
             System.out.println("2. 查询学生信息");
             System.out.println("3. 显示所有学生信息");
+            System.out.println("4. 根据姓名搜索");
             System.out.println("0. 返回上级菜单");
             System.out.print("请输入您的选择: ");
             int choice = getIntInput(scanner);
@@ -284,6 +292,9 @@ public class PrintFormatter {
                     break;
                 case 3:
                     studentController.displayAllStudents();
+                    break;
+                case 4:
+                    studentController.searchStudentsByName();
                     break;
                 case 0:
                     flag = false;

@@ -1,13 +1,13 @@
 package io.jiyue333.StuManage.Repository;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import io.jiyue333.StuManage.model.Class;
 import io.jiyue333.StuManage.model.Student;
 import io.jiyue333.StuManage.util.SimpleInject;
 import io.jiyue333.StuManage.util.SimpleSingleton;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @SimpleSingleton
 public class StudentRepository {
@@ -88,4 +88,5 @@ public class StudentRepository {
             return null;
         }
     }
+
 }

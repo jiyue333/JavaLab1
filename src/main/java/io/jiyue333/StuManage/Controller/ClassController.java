@@ -1,12 +1,18 @@
 package io.jiyue333.StuManage.Controller;
 
-import io.jiyue333.StuManage.model.Student;
 import io.jiyue333.StuManage.model.Class;
-import java.util.*;
-import io.jiyue333.StuManage.util.SimpleInject;
+import io.jiyue333.StuManage.model.Student;
+import io.jiyue333.StuManage.service.Sorted;
+import io.jiyue333.StuManage.service.impl.GradeStrategy;
+import io.jiyue333.StuManage.service.impl.LimitStrategy;
+import io.jiyue333.StuManage.service.impl.NumberStrategy;
 import io.jiyue333.StuManage.service.impl.StudentManagementService;
-import io.jiyue333.StuManage.service.impl.SortedServiceImpl;
 import io.jiyue333.StuManage.util.PrintFormatter;
+import io.jiyue333.StuManage.util.SimpleContainer;
+import io.jiyue333.StuManage.util.SimpleInject;
+
+import java.util.InputMismatchException;
+import java.util.List;
 
 /**
  * Controller for managing class-related operations.
@@ -18,8 +24,8 @@ public class ClassController {
     @SimpleInject
     private StudentManagementService studentManagementService;
     @SimpleInject
-    private SortedServiceImpl sortService;
-    
+    private Sorted sorted;
+
     @SimpleInject
     private PrintFormatter printFormatter;
 
@@ -57,7 +63,8 @@ public class ClassController {
             return;
         }
 
-        List<Student> students = sortService.sortedByGrade(mclass);
+        sorted.changeStrategy(SimpleContainer.getInstance(GradeStrategy.class));
+        List<Student> students = sorted.sorted(mclass);
         if (students.isEmpty()) {
             printFormatter.printInfo("没有学生数据可显示。");
             return;
@@ -95,7 +102,8 @@ public class ClassController {
             return;
         }
 
-        List<Student> sortedStudents = sortService.sortedbyNumber(students);
+        sorted.changeStrategy(SimpleContainer.getInstance(NumberStrategy.class));
+        List<Student> sortedStudents = sorted.sorted(mclass);
         printFormatter.printHeader("按学号排序的学生列表");
         String[] headers = {"学号", "姓名", "综合成绩"};
         String[][] data = new String[sortedStudents.size()][3];
@@ -121,24 +129,15 @@ public class ClassController {
             printFormatter.printError("班级不存在。");
             return;
         }
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("请输入分数段 (开始-结束): ");
         try {
-            int start = scanner.nextInt();
-            int end = scanner.nextInt();
-            if (start > end) {
-                printFormatter.printError("开始分数不能大于结束分数。");
-                return;
-            }
 
-            List<Student> students = sortService.sortedByLimit(mclass, start, end);
+            sorted.changeStrategy(SimpleContainer.getInstance(LimitStrategy.class));
+            List<Student> students = sorted.sorted(mclass);
             if (students.isEmpty()) {
                 printFormatter.printInfo("在该分数段内没有学生。");
                 return;
             }
 
-            printFormatter.printHeader("分数段 " + start + " - " + end + " 的学生列表");
             String[] headers = {"学号", "姓名", "综合成绩"};
             String[][] data = new String[students.size()][3];
             for (int i = 0; i < students.size(); i++) {
